@@ -1,3 +1,8 @@
+## Author
+## Kirill Lubynets
+## dev.lubinets@gmail.com
+## @mrlubinets
+
 # Usage:
 # ------
 # $ make apidoc           - generate API documentation
