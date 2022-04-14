@@ -137,10 +137,10 @@ cm:
 cmm:
 	php artisan make:model $(args) -m
 # Generate a model and a migration, factory
-fmodel:
+cmmf:
 	php artisan make:model $(args) -mf
 # Generate a model and a migration, factory, seeder
-fsmodel:
+cmmfs:
 	php artisan make:model $(args) -mfs
 
 #################
