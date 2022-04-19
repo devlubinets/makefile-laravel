@@ -24,6 +24,14 @@ args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 a:
 	php artisan
 
+
+# Init Laravel project
+init:
+	php artisan key:generate
+	php artisan storage:link
+	php artisan migrate
+	php artisan db:seed
+
 #############
 ####QUEUE####
 #############
@@ -99,6 +107,13 @@ catest:
 #############
 r:
 	php artisan make:request $(args)
+
+################
+#####SEEDERS####
+################
+
+refs:
+	php artisan migrate:refresh --seed
 
 #################
 ### MIGRATION ###
@@ -218,6 +233,7 @@ ddc:
 dcr:
 	docker-compose up -d
 
+## up and build
 
 ## Clear laravel.log file
 cl:
@@ -273,3 +289,11 @@ cr:
 
 cc:
 	php artisan make:controller $(args)Controller
+	
+	
+	
+####################
+###Create Project###
+####################
+initl6:
+	composer create-project --prefer-dist laravel/laravel LaravelLTS6 "6.*"
