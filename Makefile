@@ -24,6 +24,8 @@ args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 a:
 	php artisan
 
+ro:
+	php artisan optimize:clear
 
 # Init Laravel project
 init:
@@ -112,12 +114,26 @@ r:
 #####SEEDERS####
 ################
 
+cs:
+	php artisan make:seeder $(args)
+
+rs:
+	php artisan db:seed -v
+
+
 refs:
 	php artisan migrate:refresh --seed
+
 
 #################
 ### MIGRATION ###
 #################
+
+# Create migration table
+##args not plural forms
+cmi:
+	php artisan make:migration create_$(args)_table
+
 # Migrate ORM Eloquent model
 migrate:
 	php artisan migrate
@@ -158,13 +174,9 @@ cmmf:
 cmmfs:
 	php artisan make:model $(args) -mfs
 
-#################
-### Migration ###
-#################
-# Create migration table
-##args not plural forms
-cmi:
-	php artisan make:migration create_$(args)_table
+# Generate a model and a migration, factory, seeder
+cmms:
+	php artisan make:model $(args) -ms
 
 ##TODO если передать много значений не сработает
 # Create factory for model
@@ -186,15 +198,22 @@ t:
 enum:
 	php artisan make:enum $(args)
 
-# ORCHID admin panel
+# ORCHID Admin panel
+
+#Install orchid
+#composer require orchid/platform
+
+oi:
+	php artisan orchid:install
+
 oadmin:
 	php artisan orchid:admin dev.lubinets dev.lubinets@gmail.com 1212
 oscreen:
-	php artisan orchid:screen $(args)
+	php artisan orchid:screen $(args)Screen
 otable:
-	php artisan orchid:table $(args)
+	php artisan orchid:table $(args)Table
 orow:
-	php artisan orchid:rows $(args)
+	php artisan orchid:rows $(args)Row
 
 # Laravel Excel
 ## Create import
@@ -233,6 +252,8 @@ ddc:
 dcr:
 	docker-compose up -d
 
+dcb:
+	docker-compose build
 ## up and build
 
 ## Clear laravel.log file
@@ -261,7 +282,8 @@ eg:
 oc:
 	php artisan make:observer $(args)
 
-#php -dxdebug.mode=debug -dxdebug.client_host=192.168.8.100 -dxdebug.client_port=9003 -dxdebug.start_with_request=yes artisan queue:work
+debug:
+	php -dxdebug.mode=debug -dxdebug.client_host=192.168.0.177 -dxdebug.client_port=9003 -dxdebug.start_with_request=yes $(args)
 
 
 ################
@@ -289,11 +311,32 @@ cr:
 
 cc:
 	php artisan make:controller $(args)Controller
-	
-	
-	
+
+
+
 ####################
 ###Create Project###
 ####################
 initl6:
 	composer create-project --prefer-dist laravel/laravel LaravelLTS6 "6.*"
+
+
+####################
+#####Sluggable######
+####################
+
+isslug:
+	composer require spatie/laravel-sluggable:*
+
+
+
+####################
+######Auth##########
+####################
+rnpm:
+	npm install && npm run dev
+
+
+##Create SQL lite
+csqll:
+	touch database/database.sqlite
