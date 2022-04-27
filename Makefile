@@ -20,6 +20,9 @@ args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 
 ##Laravel
 
+#Get version laravel
+gvl:
+	php artisan --version
 #Laravel prefix
 a:
 	php artisan
@@ -74,7 +77,7 @@ rl:
 	php artisan route:list
 
 # Create Feature test
-ftest:
+cftest:
 	php artisan make:test $(args)
 # Run unit tests
 utest:
@@ -115,7 +118,7 @@ r:
 ################
 
 cs:
-	php artisan make:seeder $(args)
+	php artisan make:seeder $(args)Seeder
 
 rs:
 	php artisan db:seed -v
@@ -158,6 +161,10 @@ mfresh:
 mstatus:
 	php artisan migrate:status
 
+# Refresh table and seed
+mfs:
+	php artisan migrate:fresh --seed
+
 #############
 ### MODEL ###
 #############
@@ -180,8 +187,9 @@ cmms:
 
 ##TODO если передать много значений не сработает
 # Create factory for model
-factory:
-	php artisan make:factory $(args)Factory -m $(args)
+#php artisan make:factory Factory --model=Post
+cf:
+	php artisan make:factory $(args)
 
 # Create command
 mcommand:
