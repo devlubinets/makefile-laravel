@@ -20,6 +20,7 @@ args = `arg="$(filter-out $@,$(MAKECMDGOALS))" && echo $${arg:-${1}}`
 
 ##Laravel
 
+### //TODO команда может выполнятся просто запустив make выполнится первая команда можно использовать для иницилизации или забить фаст команду
 #Get version laravel
 gvl:
 	php artisan --version
@@ -110,8 +111,8 @@ catest:
 #############
 ###Request###
 #############
-r:
-	php artisan make:request $(args)
+cr:
+	php artisan make:request $(args)Request
 
 ################
 #####SEEDERS####
@@ -203,8 +204,8 @@ t:
 
 # Extensions
 # Bensampo ENUM
-enum:
-	php artisan make:enum $(args)
+ce:
+	php artisan make:enum $(args)Enum
 
 # ORCHID Admin panel
 
@@ -261,7 +262,7 @@ dcr:
 	docker-compose up -d
 
 dcb:
-	docker-compose build
+	docker-compose up build
 ## up and build
 
 ## Clear laravel.log file
@@ -310,7 +311,7 @@ crac:
 ################
 
 # Create resource
-cr:
+cres:
 	php artisan make:resource $(args)Resource
 
 ##################
@@ -348,3 +349,11 @@ rnpm:
 ##Create SQL lite
 csqll:
 	touch database/database.sqlite
+
+#####################
+########MAIL#########
+#####################
+
+# Create mail
+cem:
+	php artisan make:mail $(args)Mail
